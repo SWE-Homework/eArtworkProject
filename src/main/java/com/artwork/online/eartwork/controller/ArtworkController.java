@@ -67,7 +67,7 @@ public class ArtworkController {
     @DeleteMapping(value = "/delete/{artworkId}")
 
     public void deleteArtwork(@PathVariable Integer artworkId) {
-
+        //Delete artwork
         artworkService.deleteArtwork(artworkId);
 
     }
