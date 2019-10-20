@@ -54,4 +54,24 @@ public class ArtworkController {
         return this.artworkService.save(artwork);
     }
 
+    @PutMapping(value = "/update/{artworkId}")
+
+    public Artwork updateBook(@Valid @RequestBody Artwork editedArtwork, @PathVariable Integer artworkId) {
+
+        return artworkService.updateArtworkById(editedArtwork, artworkId);
+
+    }
+
+
+
+    @DeleteMapping(value = "/delete/{artworkId}")
+
+    public void deleteArtwork(@PathVariable Integer artworkId) {
+
+        artworkService.deleteArtwork(artworkId);
+
+    }
+
+
+
 }

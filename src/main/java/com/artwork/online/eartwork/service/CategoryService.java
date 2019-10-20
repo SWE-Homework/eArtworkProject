@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface CategoryService {
     public boolean save(Category category);
-    public List<Category> getArtworks();
+    public List<Category> getCategories();
     public Category getCategoryById(Integer id);
 }

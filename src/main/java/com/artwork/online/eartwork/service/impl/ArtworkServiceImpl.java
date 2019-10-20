@@ -37,4 +37,37 @@ public class ArtworkServiceImpl implements ArtworkService {
     public Artwork getArtworkById(Integer  artworkId) {
         return artworkRepository.findById(artworkId).orElse(null);
     }
+
+    @Override
+    public Artwork updateArtworkById(Artwork artwork, Integer artworkId) {
+
+        return artworkRepository.findById(artworkId)
+
+                .map(artworkToUpdate -> {
+
+                    artworkToUpdate.setName(artwork.getName());
+
+                    artworkToUpdate.setDescription(artwork.getDescription());
+
+                    artworkToUpdate.setShippingWeight(artwork.getShippingWeight());
+
+                    artworkToUpdate.setArtiste(artwork.getArtiste());
+
+                    artworkToUpdate.setCategory(artwork.getCategory());
+
+                    return artworkRepository.save(artworkToUpdate);
+
+                }).orElseGet(() -> {
+
+                    return artworkRepository.save(artwork);
+
+                });
+
+    }
+
+    @Override
+    public Artwork deleteArtwork(Integer artworkId) {
+         artworkRepository.deleteById(artworkId);
+         return null;
+    }
 }

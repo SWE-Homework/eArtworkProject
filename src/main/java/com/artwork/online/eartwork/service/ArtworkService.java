@@ -11,5 +11,7 @@ public interface ArtworkService {
     public List<Artwork> getArtworkByCategory(Integer catId);
 
     public Artwork getArtworkById(Integer id);
+    public Artwork updateArtworkById(Artwork artwork,Integer artworkId);
+    public Artwork deleteArtwork(Integer artworkId);
 
 }

@@ -1,5 +1,8 @@
 package com.artwork.online.eartwork.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.*;
 
 
@@ -11,8 +14,9 @@ public class Order {
     public Order() {
     }
 
-
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long orderId;
 
 
     private Date dateCreated;
@@ -30,11 +34,51 @@ public class Order {
     private List<OrderDetail> orderDetail;
 
 
-
-
-
-    public void placeOrder() {
-        // TODO implement here
+    public long getOrderId() {
+        return orderId;
     }
 
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
+    }
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public Date getDateShipped() {
+        return dateShipped;
+    }
+
+    public void setDateShipped(Date dateShipped) {
+        this.dateShipped = dateShipped;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
+
+    public ShippingInfo getShippingInfo() {
+        return shippingInfo;
+    }
+
+    public void setShippingInfo(ShippingInfo shippingInfo) {
+        this.shippingInfo = shippingInfo;
+    }
+
+    public List<OrderDetail> getOrderDetail() {
+        return orderDetail;
+    }
+
+    public void setOrderDetail(List<OrderDetail> orderDetail) {
+        this.orderDetail = orderDetail;
+    }
 }

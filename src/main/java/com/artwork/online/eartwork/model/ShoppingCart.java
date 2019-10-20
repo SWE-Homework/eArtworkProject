@@ -1,5 +1,8 @@
 package com.artwork.online.eartwork.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.*;
 
 
@@ -11,8 +14,9 @@ public class ShoppingCart {
     public ShoppingCart() {
     }
 
-
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long shoppingCartId;
 
 
     private int quantity;
@@ -27,37 +31,43 @@ public class ShoppingCart {
     private List<CartArtworkItem> cartArtworkItems;
 
 
-
-    public void addCartItem() {
-        // TODO implement here
+    public long getShoppingCartId() {
+        return shoppingCartId;
     }
 
-
-    public void deleteCartItem() {
-        // TODO implement here
+    public void setShoppingCartId(long shoppingCartId) {
+        this.shoppingCartId = shoppingCartId;
     }
 
-
-    public void updateQuantity() {
-        // TODO implement here
+    public int getQuantity() {
+        return quantity;
     }
 
-
-    public void viewCartDetails() {
-        // TODO implement here
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-
-    public void checkout() {
-        // TODO implement here
+    public Date getDateAdded() {
+        return dateAdded;
     }
 
-    /**
-     * @return
-     */
-    public double calculateTotalPrice() {
-        // TODO implement here
-        return 0.0d;
+    public void setDateAdded(Date dateAdded) {
+        this.dateAdded = dateAdded;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<CartArtworkItem> getCartArtworkItems() {
+        return cartArtworkItems;
+    }
+
+    public void setCartArtworkItems(List<CartArtworkItem> cartArtworkItems) {
+        this.cartArtworkItems = cartArtworkItems;
+    }
 }
