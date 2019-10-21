@@ -1,12 +1,16 @@
 package com.artwork.online.eartwork.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
 
-
-public class Order {
+@Entity
+@Table(name = "eArtOrder")
+public class Order implements Serializable {
 
     /**
      * Default constructor
@@ -15,23 +19,28 @@ public class Order {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long orderId;
 
 
-    private Date dateCreated;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
+    private LocalDate dateCreated;
 
 
-    private Date dateShipped;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
+    private LocalDate dateShipped;
 
 
     private String Status;
 
-
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "shippingInfoId")
     private ShippingInfo shippingInfo;
 
-
-    private List<OrderDetail> orderDetail;
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<OrderDetail> orderDetail = new ArrayList<>();
 
 
     public long getOrderId() {
@@ -42,19 +51,19 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public Date getDateCreated() {
+    public LocalDate getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public void setDateCreated(LocalDate dateCreated) {
         this.dateCreated = dateCreated;
     }
 
-    public Date getDateShipped() {
+    public LocalDate getDateShipped() {
         return dateShipped;
     }
 
-    public void setDateShipped(Date dateShipped) {
+    public void setDateShipped(LocalDate dateShipped) {
         this.dateShipped = dateShipped;
     }
 

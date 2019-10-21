@@ -1,12 +1,14 @@
 package com.artwork.online.eartwork.model;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.*;
 
-
-public class ShippingInfo {
+@Entity
+public class ShippingInfo implements Serializable {
 
     /**
      * Default constructor
@@ -14,8 +16,13 @@ public class ShippingInfo {
     public ShippingInfo() {
     }
 
+    public ShippingInfo(String shippingType, double shippingCost) {
+        this.shippingType = shippingType;
+        this.shippingCost = shippingCost;
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long shippingInfoId;
 
 

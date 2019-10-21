@@ -1,12 +1,11 @@
 package com.artwork.online.eartwork.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 
-
-public class OrderDetail {
+@Entity
+public class OrderDetail implements Serializable {
 
     /**
      * Default constructor
@@ -14,8 +13,13 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
+    public OrderDetail(int quantity, double unitCost) {
+        this.quantity = quantity;
+        this.unitCost = unitCost;
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long orderDetailId;
 
 
@@ -24,9 +28,13 @@ public class OrderDetail {
 
     private double unitCost;
 
-
+    @OneToOne
+    @JoinColumn(name="artWordId")
     private Artwork artWork;
 
+//    @ManyToOne
+//    @JoinColumn(name = "orderId")
+//    private  Order order;
 
     public long getOrderDetailId() {
         return orderDetailId;
