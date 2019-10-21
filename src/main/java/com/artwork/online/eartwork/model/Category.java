@@ -32,7 +32,7 @@ public class Category {
     private List<Artwork> artworks;
 
 
-    public long getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 

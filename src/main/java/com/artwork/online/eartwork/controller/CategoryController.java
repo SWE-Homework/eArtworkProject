@@ -7,16 +7,14 @@ import com.artwork.online.eartwork.service.ArtworkService;
 import com.artwork.online.eartwork.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins={"http://localhost:4200","http://localhost"},allowedHeaders = "*")
-@RequestMapping(value = "/category/api/categories",produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/eartwork/api/categories",produces = MediaType.APPLICATION_JSON_VALUE)
 public class CategoryController {
 
     @Autowired
@@ -27,9 +25,36 @@ public class CategoryController {
     }
 
     @GetMapping(value="/list")
-    public List<Category> getListArtworks() {
+    public List<Category> getList() {
         return categoryService.getCategories();
 
     }
+
+    @GetMapping(value="/getById/{categoryId}")
+    public Category getArtwork(@PathVariable Integer artworkId){
+        return this.categoryService.getCategoryById(artworkId);
+    }
+
+    @PostMapping(value="/add")
+    public Category addArtwork(@Valid @RequestBody Category category){
+        return this.categoryService.save(category);
+    }
+
+    @PutMapping(value = "/update/{categoryId}")
+
+    public Category updateBook(@Valid @RequestBody Category editedCategory, @PathVariable Integer categoryId) {
+
+        return categoryService.update(editedCategory, categoryId);
+
+    }
+    @DeleteMapping(value = "/delete/{categoryId}")
+
+    public void delete(@PathVariable Integer categoryId) {
+        //Delete artwork
+        categoryService.delete(categoryId);
+
+    }
+
+
 
 }
