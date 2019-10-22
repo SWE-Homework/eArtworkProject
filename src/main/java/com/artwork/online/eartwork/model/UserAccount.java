@@ -1,11 +1,15 @@
 package com.artwork.online.eartwork.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.*;
 
-
+@Entity
+@Transactional
 public class UserAccount {
 
     /**
@@ -15,20 +19,34 @@ public class UserAccount {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long userAccountId;
 
-
+    @Column(nullable=false)
+    @NotBlank(message = "* First Name is required")
+    private String firstName;
+    @Column(nullable=false)
+    @NotBlank(message = "* Last Name is required")
+    private String lastName;
+    @Column(nullable=false, unique=true)
+    @NotBlank(message = "* Email is required")
     private String email;
 
-
+    @Column(nullable=false)
+    @Size(min=8)
+    @NotBlank(message = "* password is required")
     private String password;
 
 
+    @Column(nullable=false)
     private String loginStatus;
 
-
-    private RoleUser roleUser;
+    @ElementCollection(targetClass = RoleUser.class)
+    @CollectionTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "userAccountId"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role_id")
+    private List <RoleUser> roleUsers;
 
 
     public long getUserAccountId() {
@@ -63,11 +81,27 @@ public class UserAccount {
         this.loginStatus = loginStatus;
     }
 
-    public RoleUser getRoleUser() {
-        return roleUser;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setRoleUser(RoleUser roleUser) {
-        this.roleUser = roleUser;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public List<RoleUser> getRoleUsers() {
+        return roleUsers;
+    }
+
+    public void setRoleUsers(List<RoleUser> roleUsers) {
+        this.roleUsers = roleUsers;
     }
 }
