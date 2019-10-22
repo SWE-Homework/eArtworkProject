@@ -18,6 +18,8 @@ public class UserAccount {
     public UserAccount() {
     }
 
+    String userProfilePic;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userAccountId;
@@ -28,7 +30,7 @@ public class UserAccount {
     @Column(nullable=false)
     @NotBlank(message = "* Last Name is required")
     private String lastName;
-    @Column(nullable=false, unique=true)
+    @Column(nullable=false)
     @NotBlank(message = "* Email is required")
     private String email;
 
@@ -38,15 +40,12 @@ public class UserAccount {
     private String password;
 
 
-    @Column(nullable=false)
+    @Column
     private String loginStatus;
 
-    @ElementCollection(targetClass = RoleUser.class)
-    @CollectionTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "userAccountId"))
     @Enumerated(EnumType.STRING)
-    @Column(name = "role_id")
-    private List <RoleUser> roleUsers;
+    @Column(name = "roleUser")
+    private RoleUser roleUser;
 
 
     public long getUserAccountId() {
@@ -97,11 +96,19 @@ public class UserAccount {
         this.lastName = lastName;
     }
 
-    public List<RoleUser> getRoleUsers() {
-        return roleUsers;
+    public String getUserProfilePic() {
+        return userProfilePic;
     }
 
-    public void setRoleUsers(List<RoleUser> roleUsers) {
-        this.roleUsers = roleUsers;
+    public void setUserProfilePic(String userProfilePic) {
+        this.userProfilePic = userProfilePic;
+    }
+
+    public RoleUser getRoleUser() {
+        return roleUser;
+    }
+
+    public void setRoleUser(RoleUser roleUser) {
+        this.roleUser = roleUser;
     }
 }
