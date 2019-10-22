@@ -33,11 +33,12 @@ public class Order implements Serializable {
     private LocalDate dateShipped;
 
 
-    private String Status;
+    private String status;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "shippingInfoId")
     private ShippingInfo shippingInfo;
+
 
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetail = new ArrayList<>();
@@ -68,11 +69,11 @@ public class Order implements Serializable {
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 
     public ShippingInfo getShippingInfo() {
