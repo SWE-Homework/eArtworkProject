@@ -1,11 +1,10 @@
 package com.artwork.online.eartwork.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.*;
 
-
+@Entity
 public class ShippingAddress {
 
     /**
@@ -19,15 +18,20 @@ public class ShippingAddress {
     private long shippingAddressId;
 
 
+    @Column(nullable=false)
+    @NotBlank(message = "* Street is required")
     private String street;
 
-
+    @Column(nullable=false)
+    @NotBlank(message = "* Street is required")
     private String city;
 
-
+    @Column(nullable=false)
+    @NotBlank(message = "* Street is required")
     private String state;
 
-
+    @Column(nullable=false)
+    @NotBlank(message = "* Street is required")
     private String zipcode;
 
     public long getShippingAddressId() {

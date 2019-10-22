@@ -1,8 +1,6 @@
 package com.artwork.online.eartwork.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.*;
 
 
@@ -30,7 +28,7 @@ public class Customer {
 
     private boolean active;
 
-
+     @OneToOne
     private ShippingAddress shoppingAddress;
 
 
