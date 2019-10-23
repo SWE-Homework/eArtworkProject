@@ -18,6 +18,8 @@ public class UserAccount {
     public UserAccount() {
     }
 
+    String userProfilePic;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userAccountId;
@@ -28,7 +30,7 @@ public class UserAccount {
     @Column(nullable=false)
     @NotBlank(message = "* Last Name is required")
     private String lastName;
-    @Column(nullable=false, unique=true)
+    @Column(nullable=false, unique = true)
     @NotBlank(message = "* Email is required")
     private String email;
 
@@ -38,15 +40,26 @@ public class UserAccount {
     private String password;
 
 
-    @Column(nullable=false)
+    @Column
     private String loginStatus;
 
-    @ElementCollection(targetClass = RoleUser.class)
-    @CollectionTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "userAccountId"))
     @Enumerated(EnumType.STRING)
-    @Column(name = "role_id")
-    private List <RoleUser> roleUsers;
+    @Column(name = "roleUser")
+    private RoleUser roleUser;
+
+
+    private boolean active;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "addressId")
+    private ShippingAddress shoppingAddress;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "shoppingCartId")
+    private ShoppingCart shoppingCart;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Order> order;
 
     public UserAccount(@NotBlank(message = "* First Name is required") String firstName,
                        @NotBlank(message = "* Last Name is required") String lastName, @NotBlank(message = "* Email is required") String email, @Size(min = 8) @NotBlank(message = "* password is required") String password, String loginStatus, List<RoleUser> roleUsers) {
@@ -106,11 +119,66 @@ public class UserAccount {
         this.lastName = lastName;
     }
 
-    public List<RoleUser> getRoleUsers() {
-        return roleUsers;
+    public String getUserProfilePic() {
+        return userProfilePic;
     }
 
-    public void setRoleUsers(List<RoleUser> roleUsers) {
-        this.roleUsers = roleUsers;
+    public void setUserProfilePic(String userProfilePic) {
+        this.userProfilePic = userProfilePic;
+    }
+
+    public RoleUser getRoleUser() {
+        return roleUser;
+    }
+
+    public void setRoleUser(RoleUser roleUser) {
+        this.roleUser = roleUser;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public ShippingAddress getShoppingAddress() {
+        return shoppingAddress;
+    }
+
+    public void setShoppingAddress(ShippingAddress shoppingAddress) {
+        this.shoppingAddress = shoppingAddress;
+    }
+
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+
+    public List<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(List<Order> order) {
+        this.order = order;
+    }
+
+    @Override
+    public String toString() {
+        return "UserAccount{" +
+                "userProfilePic='" + userProfilePic + '\'' +
+                ", userAccountId=" + userAccountId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", loginStatus='" + loginStatus + '\'' +
+                ", roleUser=" + roleUser +
+                ", active=" + active +
+                '}';
     }
 }

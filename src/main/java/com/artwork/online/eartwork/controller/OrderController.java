@@ -1,14 +1,20 @@
 package com.artwork.online.eartwork.controller;
 
 import com.artwork.online.eartwork.model.Order;
-import com.artwork.online.eartwork.model.OrderDetail;
-import com.artwork.online.eartwork.model.ShippingInfo;
 import com.artwork.online.eartwork.service.OrderService;
+import com.artwork.online.eartwork.service.impl.FileStorageService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,8 +22,11 @@ import java.util.List;
 @CrossOrigin(origins={"http://localhost:4200","http://localhost"},allowedHeaders = "*")
 @RequestMapping(value = "/eartwork/api/orders",produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrderController {
+    private static final Logger logger = LoggerFactory.getLogger(FileUploadRestController.class);
     @Autowired
     OrderService orderService;
+    @Autowired
+    private FileStorageService fileStorageService;
 
     @GetMapping(value="/list")
     public List<Order> getListArtworks() {
@@ -56,6 +65,31 @@ public class OrderController {
         return null;
 
     }
+
+    @GetMapping("/downloadFile/{fileName:.+}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+        // Load file as Resource
+        Resource resource = fileStorageService.loadFileAsResource(fileName);
+
+        // Try to determine file's content type
+        String contentType = null;
+        try {
+            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (IOException ex) {
+            logger.info("Could not determine file type.");
+        }
+
+        // Fallback to the default content type if type could not be determined
+        if(contentType == null) {
+            contentType = "application/octet-stream";
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
+    }
+
 
 
 
