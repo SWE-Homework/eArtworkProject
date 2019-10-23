@@ -157,4 +157,19 @@ public class UserAccount {
     public void setOrder(List<Order> order) {
         this.order = order;
     }
+
+    @Override
+    public String toString() {
+        return "UserAccount{" +
+                "userProfilePic='" + userProfilePic + '\'' +
+                ", userAccountId=" + userAccountId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", loginStatus='" + loginStatus + '\'' +
+                ", roleUser=" + roleUser +
+                ", active=" + active +
+                '}';
+    }
 }

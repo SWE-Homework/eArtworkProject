@@ -47,4 +47,14 @@ public class FileUploadResponse {
     public void setSize(long size) {
         this.size = size;
     }
+
+    @Override
+    public String toString() {
+        return "FileUploadResponse{" +
+                "fileName='" + fileName + '\'' +
+                ", fileDownloadUri='" + fileDownloadUri + '\'' +
+                ", fileType='" + fileType + '\'' +
+                ", size=" + size +
+                '}';
+    }
 }

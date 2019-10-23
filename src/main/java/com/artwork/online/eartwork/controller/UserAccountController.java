@@ -1,5 +1,7 @@
 package com.artwork.online.eartwork.controller;
 
+import com.artwork.online.eartwork.model.RoleUser;
+import com.artwork.online.eartwork.model.ShoppingCart;
 import com.artwork.online.eartwork.model.UserAccount;
 import com.artwork.online.eartwork.service.UserAccountService;
 import com.artwork.online.eartwork.service.impl.FileStorageService;
@@ -33,6 +35,10 @@ public class UserAccountController {
     @PostMapping(value = "/add")
     public UserAccount addNewUserAccount(@Valid @RequestBody UserAccount userAccount) {
         userAccount.setLoginStatus(".");
+        userAccount.setRoleUser(RoleUser.CUSTOMER);
+        userAccount.setActive(true);
+        userAccount.setShoppingCart(new ShoppingCart());
+        System.out.println("User About to be save : "+userAccount.toString());
         return userAccountService.createNewUserAccount(userAccount);
     }
 

@@ -19,7 +19,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api")
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost"}, allowedHeaders = "*")
+@RequestMapping("/eartwork/api")
 public class FileUploadRestController {
 
     private static final Logger logger = LoggerFactory.getLogger(FileUploadRestController.class);
@@ -31,14 +32,16 @@ public class FileUploadRestController {
     }
 
     @PostMapping("/uploadSingleFile")
-    public FileUploadResponse uploadFile(@RequestParam("file") MultipartFile file) {
+    public FileUploadResponse uploadFile(@RequestBody MultipartFile file) {
         String fileName = fileStorageService.storeFile(file);
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/api/downloadFile/")
                 .path(fileName)
                 .toUriString();
-        return new FileUploadResponse(fileName, fileDownloadUri,
+         FileUploadResponse fr = new FileUploadResponse(fileName, fileDownloadUri,
                 file.getContentType(), file.getSize());
+         System.out.println(fr.toString());
+        return fr;
     }
 
     @PostMapping("/uploadMultipleFiles")
