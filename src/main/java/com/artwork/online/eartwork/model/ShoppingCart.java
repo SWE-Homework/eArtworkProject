@@ -1,11 +1,9 @@
 package com.artwork.online.eartwork.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.*;
 
-
+@Entity
 public class ShoppingCart {
 
     /**
@@ -15,7 +13,7 @@ public class ShoppingCart {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long shoppingCartId;
 
 
@@ -27,7 +25,7 @@ public class ShoppingCart {
 
     private String status;
 
-
+    @Transient
     private List<CartArtworkItem> cartArtworkItems;
 
 

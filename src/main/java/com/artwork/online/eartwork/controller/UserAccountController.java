@@ -2,8 +2,12 @@ package com.artwork.online.eartwork.controller;
 
 import com.artwork.online.eartwork.model.UserAccount;
 import com.artwork.online.eartwork.service.UserAccountService;
+import com.artwork.online.eartwork.service.impl.FileStorageService;
+import com.artwork.online.eartwork.service.impl.FileUploadResponse;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -14,9 +18,11 @@ import java.util.Optional;
 @RequestMapping(value = "/eartwork/api/useraccount", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserAccountController {
     private UserAccountService userAccountService;
+    private FileStorageService fileStorageService;
 
-    public UserAccountController(UserAccountService userAccountService) {
+    public UserAccountController(UserAccountService userAccountService,FileStorageService fileStorageService) {
         this.userAccountService = userAccountService;
+        this.fileStorageService = fileStorageService;
     }
 
     @GetMapping(value = {"/list"})
@@ -26,7 +32,31 @@ public class UserAccountController {
 
     @PostMapping(value = "/add")
     public UserAccount addNewUserAccount(@Valid @RequestBody UserAccount userAccount) {
+        userAccount.setLoginStatus(".");
         return userAccountService.createNewUserAccount(userAccount);
+    }
+
+    @PostMapping(value = "/add/update/{email}")
+    public UserAccount addUploadUserPic( @PathVariable String email ,
+                                        @RequestBody MultipartFile file) {
+        System.out.println("----------------------------"+email+"---------------------");
+        try {
+            UserAccount userAccount = userAccountService.getUserAccountByEmail(email).orElse(null);
+            String fileName = fileStorageService.storeFile(file);
+            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/api/downloadFile/")
+                    .path(fileName)
+                    .toUriString();
+            FileUploadResponse fileUploadResponse = new FileUploadResponse(fileName, fileDownloadUri,
+                    file.getContentType(), file.getSize());
+            userAccount.setUserProfilePic(fileUploadResponse.getFileDownloadUri());
+            userAccountService.createNewUserAccount(userAccount);
+            System.out.println("----------------------------" + fileUploadResponse.getFileDownloadUri() + "---------------------");
+            return userAccount;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @GetMapping(value = "/get/{email}")

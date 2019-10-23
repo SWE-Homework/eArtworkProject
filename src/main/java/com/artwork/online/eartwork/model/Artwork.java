@@ -1,6 +1,7 @@
 package com.artwork.online.eartwork.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="artworks")
@@ -35,6 +36,8 @@ public class Artwork {
     @JoinColumn(name="category_id",nullable = false)
     private Category category;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    List<ArtworkImages> artworkImagesList;
 
     public Integer getArtworkId() {
         return artworkId;
@@ -90,5 +93,13 @@ public class Artwork {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public List<ArtworkImages> getArtworkImagesList() {
+        return artworkImagesList;
+    }
+
+    public void setArtworkImagesList(List<ArtworkImages> artworkImagesList) {
+        this.artworkImagesList = artworkImagesList;
     }
 }

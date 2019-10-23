@@ -30,7 +30,7 @@ public class UserAccount {
     @Column(nullable=false)
     @NotBlank(message = "* Last Name is required")
     private String lastName;
-    @Column(nullable=false)
+    @Column(nullable=false, unique = true)
     @NotBlank(message = "* Email is required")
     private String email;
 
@@ -46,6 +46,20 @@ public class UserAccount {
     @Enumerated(EnumType.STRING)
     @Column(name = "roleUser")
     private RoleUser roleUser;
+
+
+    private boolean active;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "addressId")
+    private ShippingAddress shoppingAddress;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "shoppingCartId")
+    private ShoppingCart shoppingCart;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Order> order;
 
 
     public long getUserAccountId() {
@@ -110,5 +124,37 @@ public class UserAccount {
 
     public void setRoleUser(RoleUser roleUser) {
         this.roleUser = roleUser;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public ShippingAddress getShoppingAddress() {
+        return shoppingAddress;
+    }
+
+    public void setShoppingAddress(ShippingAddress shoppingAddress) {
+        this.shoppingAddress = shoppingAddress;
+    }
+
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }
+
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+        this.shoppingCart = shoppingCart;
+    }
+
+    public List<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(List<Order> order) {
+        this.order = order;
     }
 }

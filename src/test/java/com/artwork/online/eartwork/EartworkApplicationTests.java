@@ -19,23 +19,23 @@ public class EartworkApplicationTests {
 
     @Test
     public void contextLoads() {
-        UserAccount userAccount= new UserAccount();
-        userAccount.setFirstName("Bisrat");
-        userAccount.setLastName("Kidane");
-        userAccount.setEmail("bsur91@gmail.com");
-        userAccount.setPassword("admin12345");
-        userAccount.setLoginStatus("");
-        userAccount.setRoleUsers(Arrays.asList(RoleUser.Admin,RoleUser.Customer));
-        userAccountService.createNewUserAccount(userAccount);
-
-        UserAccount userAccount1= new UserAccount();
-        userAccount1.setFirstName("Akile");
-        userAccount1.setLastName("Afwerki");
-        userAccount1.setEmail("aki@gmail.com");
-        userAccount1.setPassword("customer1234");
-        userAccount1.setLoginStatus("");
-        userAccount1.setRoleUsers(Arrays.asList(RoleUser.Customer));
-        userAccountService.createNewUserAccount(userAccount1);
+//        UserAccount userAccount= new UserAccount();
+//        userAccount.setFirstName("Bisrat");
+//        userAccount.setLastName("Kidane");
+//        userAccount.setEmail("bsur91@gmail.com");
+//        userAccount.setPassword("admin12345");
+//        userAccount.setLoginStatus("");
+//        userAccount.setRoleUsers(Arrays.asList(RoleUser.Admin,RoleUser.Customer));
+//        userAccountService.createNewUserAccount(userAccount);
+//
+//        UserAccount userAccount1= new UserAccount();
+//        userAccount1.setFirstName("Akile");
+//        userAccount1.setLastName("Afwerki");
+//        userAccount1.setEmail("aki@gmail.com");
+//        userAccount1.setPassword("customer1234");
+//        userAccount1.setLoginStatus("");
+//        userAccount1.setRoleUsers(Arrays.asList(RoleUser.Customer));
+//        userAccountService.createNewUserAccount(userAccount1);
     }
 
 }
