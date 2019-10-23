@@ -55,6 +55,12 @@ public class ArtworkServiceImpl implements ArtworkService {
 
                     artworkToUpdate.setCategory(artwork.getCategory());
 
+                    artworkToUpdate.setImage1(artwork.getImage1());
+                    artworkToUpdate.setImage2(artwork.getImage2());
+                    artworkToUpdate.setImage3(artwork.getImage3());
+                    artworkToUpdate.setNewPrice(artwork.getNewPrice());
+                    artworkToUpdate.setRecommended(artwork.getRecommended());
+
                     return artworkRepository.save(artworkToUpdate);
 
                 }).orElseGet(() -> {
