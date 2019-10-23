@@ -4,7 +4,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+
 import javax.validation.constraints.Size;
 import java.util.*;
 
@@ -48,6 +48,15 @@ public class UserAccount {
     @Column(name = "role_id")
     private List <RoleUser> roleUsers;
 
+    public UserAccount(@NotBlank(message = "* First Name is required") String firstName,
+                       @NotBlank(message = "* Last Name is required") String lastName, @NotBlank(message = "* Email is required") String email, @Size(min = 8) @NotBlank(message = "* password is required") String password, String loginStatus, List<RoleUser> roleUsers) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.loginStatus = loginStatus;
+        this.roleUsers = roleUsers;
+    }
 
     public long getUserAccountId() {
         return userAccountId;
