@@ -27,8 +27,9 @@ public class UserAccountController {
         this.fileStorageService = fileStorageService;
     }
 
-    @GetMapping(value = {"/login"})
+    @PostMapping(value = {"/login"})
     public UserAccount userAccountList(@RequestBody UserAccount userLog) {
+        System.out.println("----------------------------- Attempt Login ---------------------------");
         UserAccount user = userAccountService.getUserAccountByEmail(userLog.getEmail()).orElse(null);
         if(user != null)if(user.getPassword().equals(userLog.getPassword())) return user;
         return null;
