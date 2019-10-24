@@ -27,6 +27,13 @@ public class UserAccountController {
         this.fileStorageService = fileStorageService;
     }
 
+    @GetMapping(value = {"/login"})
+    public UserAccount userAccountList(@RequestBody UserAccount userLog) {
+        UserAccount user = userAccountService.getUserAccountByEmail(userLog.getEmail()).orElse(null);
+        if(user != null)if(user.getPassword().equals(userLog.getPassword())) return user;
+        return null;
+    }
+
     @GetMapping(value = {"/list"})
     public List<UserAccount> userAccountList() {
         return userAccountService.getAllUserAccounts();

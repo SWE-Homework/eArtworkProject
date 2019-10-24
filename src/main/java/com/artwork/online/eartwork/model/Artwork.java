@@ -9,14 +9,14 @@ public class Artwork {
 
     public Artwork(){}
 
-    public Artwork(String name, String description, String artiste, double shippingWeight, double amount, Category category) {
-        this.name = name;
-        this.description = description;
-        this.artiste = artiste;
-        this.shippingWeight = shippingWeight;
-        this.amount = amount;
-        this.category = category;
-    }
+//    public Artwork(String name, String description, String artiste, double shippingWeight, double amount, Category category) {
+//        this.name = name;
+//        this.description = description;
+//        this.artiste = artiste;
+//        this.shippingWeight = shippingWeight;
+//        this.amount = amount;
+//        this.category = category;
+//    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -146,5 +146,23 @@ public class Artwork {
 
     public void setArtworkImagesList(List<ArtworkImages> artworkImagesList) {
         this.artworkImagesList = artworkImagesList;
+    }
+
+    @Override
+    public String toString() {
+        return "Artwork{" +
+                "artworkId=" + artworkId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", artiste='" + artiste + '\'' +
+                ", shippingWeight=" + shippingWeight +
+                ", amount=" + amount +
+                ", category=" + category +
+                ", image1='" + image1 + '\'' +
+                ", image2='" + image2 + '\'' +
+                ", image3='" + image3 + '\'' +
+                ", newPrice=" + newPrice +
+                ", recommended=" + recommended +
+                '}';
     }
 }
