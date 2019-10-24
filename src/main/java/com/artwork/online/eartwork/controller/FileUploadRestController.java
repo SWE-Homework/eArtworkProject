@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost"}, allowedHeaders = "*")
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost","http://localhost:4201"}, allowedHeaders = "*")
 @RequestMapping("/eartwork/api")
 public class FileUploadRestController {
 
