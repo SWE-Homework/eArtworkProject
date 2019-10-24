@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200","http://localhost:4201", "http://localhost"}, allowedHeaders = "*")
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost","http://localhost:4201"}, allowedHeaders = "*")
 @RequestMapping("/eartwork/api")
 public class FileUploadRestController {
 
@@ -45,16 +45,11 @@ public class FileUploadRestController {
     }
 
     @PostMapping("/uploadMultipleFiles")
-    public List<FileUploadResponse> uploadMultipleFiles(@RequestBody MultipartFile[] files) {
-        if(files!=null) {
-            System.out.println("uploadMultipleFiles");
-            Arrays.asList(files).forEach(e -> System.out.println(e.getOriginalFilename()));
-            return Arrays.asList(files)
-                    .stream()
-                    .map(file -> this.uploadFile(file))
-                    .collect(Collectors.toList());
-        }
-        return null;
+    public List<FileUploadResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+        return Arrays.asList(files)
+            .stream()
+            .map(file -> this.uploadFile(file))
+            .collect(Collectors.toList());
     }
 
     @GetMapping("/downloadFile/{fileName:.+}")

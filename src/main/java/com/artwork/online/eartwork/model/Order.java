@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Entity
-@Table(name = "eArtOrder")
+@Table(name = "Order")
 public class Order implements Serializable {
 
     /**
