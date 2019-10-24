@@ -32,6 +32,7 @@ public class UserAccount {
     private String lastName;
     @Column(nullable=false, unique = true)
     @NotBlank(message = "* Email is required")
+    @Size(max = 100)
     private String email;
 
     @Column(nullable=false)
@@ -59,16 +60,16 @@ public class UserAccount {
     private ShoppingCart shoppingCart;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Order> order;
+    private List<Order> order = new ArrayList<>();
 
     public UserAccount(@NotBlank(message = "* First Name is required") String firstName,
-                       @NotBlank(message = "* Last Name is required") String lastName, @NotBlank(message = "* Email is required") String email, @Size(min = 8) @NotBlank(message = "* password is required") String password, String loginStatus, List<RoleUser> roleUsers) {
+                       @NotBlank(message = "* Last Name is required") String lastName, @NotBlank(message = "* Email is required") String email, @Size(min = 8) @NotBlank(message = "* password is required") String password, String loginStatus, RoleUser roleUser) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.loginStatus = loginStatus;
-        this.roleUsers = roleUsers;
+        this.roleUser = roleUser;
     }
 
     public long getUserAccountId() {

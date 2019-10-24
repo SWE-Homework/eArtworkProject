@@ -53,6 +53,14 @@ public class UserAccountImpl implements UserAccountService {
       userAccountRepository.deleteById(userAccountId);
     }
 
+    @Override
+    public UserAccount getUserAccountById(long id) {
+        return userAccountRepository.findById(id).orElse(null);
+    }
+
+    public UserAccount updateUserAccount(UserAccount userAccount){
+        return userAccountRepository.save(userAccount);
+    }
 
 }
 

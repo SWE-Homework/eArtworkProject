@@ -11,6 +11,6 @@ public interface UserAccountService {
     Optional<UserAccount> getUserAccountByEmail(String email);
     UserAccount updateUserAccountById(UserAccount userAccount, Long userAccountId);
     void deleteUserAccountById(Long userAccountId);
-
-
+    UserAccount getUserAccountById(long id);
+    UserAccount updateUserAccount(UserAccount userAccount);
 }

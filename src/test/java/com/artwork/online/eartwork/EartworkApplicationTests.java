@@ -3,7 +3,7 @@ package com.artwork.online.eartwork;
 import com.artwork.online.eartwork.model.RoleUser;
 import com.artwork.online.eartwork.model.UserAccount;
 import com.artwork.online.eartwork.service.UserAccountService;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +18,7 @@ public class EartworkApplicationTests {
 
     @Test
     public void contextLoads() {
+
     }
 
 }
