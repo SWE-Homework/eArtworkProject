@@ -62,7 +62,7 @@ public class UserAccount {
     private List<Order> order;
 
     public UserAccount(@NotBlank(message = "* First Name is required") String firstName,
-                       @NotBlank(message = "* Last Name is required") String lastName, @NotBlank(message = "* Email is required") String email, @Size(min = 8) @NotBlank(message = "* password is required") String password, String loginStatus, RoleUser roleUsers) {
+                       @NotBlank(message = "* Last Name is required") String lastName, @NotBlank(message = "* Email is required") String email, @Size(min = 1) @NotBlank(message = "* password is required") String password, String loginStatus, RoleUser roleUsers) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
