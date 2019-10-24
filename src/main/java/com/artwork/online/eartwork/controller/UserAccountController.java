@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost"}, allowedHeaders = "*")
+@CrossOrigin(origins = {"http://localhost:4200","http://localhost:4201", "http://localhost"}, allowedHeaders = "*")
 @RequestMapping(value = "/eartwork/api/useraccount", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserAccountController {
     private UserAccountService userAccountService;
@@ -41,12 +41,16 @@ public class UserAccountController {
 
     @PostMapping(value = "/add")
     public UserAccount addNewUserAccount(@Valid @RequestBody UserAccount userAccount) {
+        UserAccount userAccount1 = userAccountService.getUserAccountByEmail(userAccount.getEmail()).orElse(null);
+        if(userAccount1==null){
+
         userAccount.setLoginStatus(".");
         userAccount.setRoleUser(RoleUser.CUSTOMER);
         userAccount.setActive(true);
         userAccount.setShoppingCart(new ShoppingCart());
         System.out.println("User About to be save : "+userAccount.toString());
         return userAccountService.createNewUserAccount(userAccount);
+        }else return null;
     }
 
     @PostMapping(value = "/add/update/{email}")
