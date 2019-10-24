@@ -1,9 +1,6 @@
 package com.artwork.online.eartwork.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
@@ -30,6 +27,11 @@ public class ShippingInfo implements Serializable {
 
 
     private double shippingCost;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    ShippingAddress shippingAddress;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    MethodPayement methodPayement;
 
     public long getShippingInfoId() {
         return shippingInfoId;
@@ -53,5 +55,21 @@ public class ShippingInfo implements Serializable {
 
     public void setShippingCost(double shippingCost) {
         this.shippingCost = shippingCost;
+    }
+
+    public ShippingAddress getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(ShippingAddress shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    public MethodPayement getMethodPayement() {
+        return methodPayement;
+    }
+
+    public void setMethodPayement(MethodPayement methodPayement) {
+        this.methodPayement = methodPayement;
     }
 }

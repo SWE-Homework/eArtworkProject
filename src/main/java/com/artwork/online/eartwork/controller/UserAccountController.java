@@ -50,7 +50,10 @@ public class UserAccountController {
         userAccount.setShoppingCart(new ShoppingCart());
         System.out.println("User About to be save : "+userAccount.toString());
         return userAccountService.createNewUserAccount(userAccount);
-        }else return null;
+        }else {
+            System.out.println("User Existing");
+            return null;
+        }
     }
 
     @PostMapping(value = "/add/update/{email}")
