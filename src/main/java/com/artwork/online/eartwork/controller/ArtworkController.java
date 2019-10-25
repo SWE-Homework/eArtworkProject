@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin(origins={"http://localhost:4200","http://localhost","http://localhost:4201"},allowedHeaders = "*")
+@CrossOrigin(origins={"http://localhost:4200","http://localhost","http://localhost:4201","http://localhost:4203,"},allowedHeaders = "*")
 @RequestMapping(value = "/eartwork/api/artworks",produces = MediaType.APPLICATION_JSON_VALUE)
 public class ArtworkController {
 

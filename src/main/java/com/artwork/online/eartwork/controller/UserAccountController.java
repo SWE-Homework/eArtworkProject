@@ -46,7 +46,14 @@ public class UserAccountController {
         if(userAccount1==null){
 
         userAccount.setLoginStatus(".");
-        userAccount.setRoleUser(RoleUser.CUSTOMER);
+            System.out.println("=====================");
+        System.out.println(userAccount);
+        if(userAccount.getRoleUser().equals("ADMIN")){
+            userAccount.setRoleUser(RoleUser.ADMIN);
+        }else {
+                userAccount.setRoleUser(RoleUser.CUSTOMER);
+            }
+
         userAccount.setActive(true);
         userAccount.setShoppingCart(new ShoppingCart());
         System.out.println("User About to be save : "+userAccount.toString());
